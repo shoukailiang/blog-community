@@ -7,7 +7,7 @@ import lombok.Data;
  * 对应 第二步  2. Users are redirected back to your site by GitHub
  */
 @Data
-public class AccessTokenDto {
+public class AccessTokenDTO {
   private String client_id;
   private String client_secret;
   private String code;

@@ -4,7 +4,7 @@ create table user
     account_id varchar(100),
     name varchar(50),
     token char,
-    mgt_create bigint,
+    gmt_create bigint,
     gmt_modified bigint,
     constraint user_pk
     primary key (id)

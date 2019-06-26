@@ -66,7 +66,7 @@
         <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>发现</h2>
         <hr>
 
-        <div class="media" th:each="question : ${questions}">
+        <div class="media" th:each="question : ${pagination.questions}">
           <div class="media-left">
             <a href="#">
               <img class="media-object img-rounded" th:src="${question.user.avatarUrl}" alt="...">
@@ -82,6 +82,40 @@
             </span>
           </div>
         </div>
+
+        <nav aria-label="Page navigation">
+          <ul class="pagination">
+            <li th:if="${pagination.showFirstPage}">
+              <a href="/?page=1" aria-label="First">
+                <span aria-hidden="true">&lt;&lt;</span>
+              </a>
+            </li>
+            <li th:if="${pagination.showPrevious}">
+              <a th:href="@{/(page = ${pagination.page -1})}" aria-label="Previous">
+                <span aria-hidden="true">&lt;</span>
+              </a>
+            </li>
+            <li th:each="page : ${pagination.pages}"
+                th:class="${pagination.page==page}?'active':null"
+            >
+              <a th:text="${page}"
+                 th:href="@{/(page = ${page})}"
+
+              >
+              </a>
+            </li>
+            <li th:if="${pagination.showNext}">
+              <a th:href="@{/(page = ${pagination.page+1})}" aria-label="Next">
+                <span aria-hidden="true">&gt;</span>
+              </a>
+            </li>
+            <li th:if="${pagination.showEndPage}">
+              <a th:href="@{/(page = ${pagination.totalPage})}" aria-label="Last">
+                <span aria-hidden="true">&gt;&gt;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
 
       </div>
       <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">

@@ -10,46 +10,7 @@
   <script src="js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">SKL 社区</span>
-        </button>
-        <a class="navbar-brand" href="/">SKL 社区</a>
-      </div>
-
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form class="navbar-form navbar-left">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="搜索问题">
-          </div>
-          <button type="submit" class="btn btn-default">搜索</button>
-        </form>
-        <ul class="nav navbar-nav navbar-right">
-          <li th:if="${session.user!=null}">
-            <a href="/publish">发布</a>
-          </li>
-          <li class="dropdown" th:if="${session.user!=null}">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.user.getName()}">我 <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">消息中心</a></li>
-                <li><a href="#">个人资料</a></li>
-                <li><a href="#">登录推出</a></li>
-            </ul>
-          </li>
-          <li th:if="${session.user==null}">
-            <a
-            href="https://github.com/login/oauth/authorize?client_id=34249f8e850476059776&redirect_uri=http://localhost:8888/callback&scope=user&state=1"
-            >
-              登录
-            </a>
-          </li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
+  <div th:insert="~{navigation::nav}"></div>
   <div class="container-fluid main">
     <div class="row">
 

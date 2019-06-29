@@ -3,6 +3,8 @@ package com.skl.community.community.service;
 
 import com.skl.community.community.dto.PaginationDTO;
 import com.skl.community.community.dto.QuestionDTO;
+import com.skl.community.community.exception.CommunityErrorCode;
+import com.skl.community.community.exception.CommunityException;
 import com.skl.community.community.mapper.QuestionMapper;
 import com.skl.community.community.mapper.UserMapper;
 import com.skl.community.community.model.Question;
@@ -119,6 +121,11 @@ public class QuestionService {
 
   public QuestionDTO getById(Integer id) {
     Question question = questionMapper.selectByPrimaryKey(id);
+    if (question==null){
+      throw new CommunityException(CommunityErrorCode.QUESTION_NOT_FOUND);
+    }
+
+
     QuestionDTO questionDTO = new QuestionDTO();
     BeanUtils.copyProperties(question,questionDTO);
     User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -144,9 +151,12 @@ public class QuestionService {
       updateQuestion.setTag(question.getTag());
       QuestionExample example = new QuestionExample();
       example.createCriteria().andIdEqualTo(question.getId());
-      questionMapper.updateByExampleSelective(updateQuestion, example);
-
-
+      int updated = questionMapper.updateByExampleSelective(updateQuestion, example);
+      // 如果更新的时候，别人已经删了这条问题
+      // 更新success就是1
+      if(updated !=1){
+        throw new CommunityException(CommunityErrorCode.QUESTION_NOT_FOUND);
+      }
     }
   }
 }

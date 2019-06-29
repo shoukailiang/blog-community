@@ -5,6 +5,7 @@ import com.skl.community.community.dto.PaginationDTO;
 import com.skl.community.community.dto.QuestionDTO;
 import com.skl.community.community.exception.CommunityErrorCode;
 import com.skl.community.community.exception.CommunityException;
+import com.skl.community.community.mapper.QuestionExtMapper;
 import com.skl.community.community.mapper.QuestionMapper;
 import com.skl.community.community.mapper.UserMapper;
 import com.skl.community.community.model.Question;
@@ -26,6 +27,9 @@ public class QuestionService {
 
   @Autowired
   private QuestionMapper questionMapper;
+
+  @Autowired
+  private QuestionExtMapper questionExtMapper;
   
   public PaginationDTO list(Integer page, Integer size) {
     PaginationDTO paginationDTO = new PaginationDTO();
@@ -158,5 +162,12 @@ public class QuestionService {
         throw new CommunityException(CommunityErrorCode.QUESTION_NOT_FOUND);
       }
     }
+  }
+
+  public void incView(Integer id) {
+    Question question = new Question();
+    question.setId(id);
+    question.setViewCount(1);
+    questionExtMapper.incView(question);
   }
 }

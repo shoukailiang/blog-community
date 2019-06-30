@@ -7,6 +7,7 @@ public enum CommunityErrorCode implements IComminityErrorCode {
   SYSTEM_ERROR(2004,"服务太热啦，要不然稍等下再来试试~"),
   TYPE_PARAM_WRONG(2005,"评论类型错误或不存在"),
   COMMENT_NOT_FOUND(2006,"你回复的评论不存在"),
+  CONTENT_IS_EMPTY(2007,"你回复的内容为空"),
   ;
 
   private String message;

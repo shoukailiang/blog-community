@@ -35,9 +35,9 @@ public class AuthorizeController {
   private UserService userService;
 
   @GetMapping("/callback")
-  public String callback(@RequestParam(name="code") String code,
-                         @RequestParam(name="state") String state,
-                         HttpServletResponse response){
+  public String callback(@RequestParam(name = "code") String code,
+                         @RequestParam(name = "state") String state,
+                         HttpServletResponse response) {
     AccessTokenDTO accessTokenDto = new AccessTokenDTO();
     accessTokenDto.setClient_id(clientId);
     accessTokenDto.setClient_secret(clientSecret);
@@ -46,7 +46,7 @@ public class AuthorizeController {
     accessTokenDto.setState(state);
     String accessToken = githubProvider.getAccessToken(accessTokenDto);
     GithubUser githubUser = githubProvider.getGithubUser(accessToken);
-    if(githubUser!=null && githubUser.getId()!=null){
+    if (githubUser != null && githubUser.getId() != null) {
       User user = new User();
       String token = UUID.randomUUID().toString();
       user.setToken(token);
@@ -55,9 +55,9 @@ public class AuthorizeController {
 
       user.setAvatarUrl(githubUser.getAvatar_url());
       userService.createOrUpdate(user);
-      response.addCookie(new Cookie("token",token));
+      response.addCookie(new Cookie("token", token));
       return "redirect:/";
-    }else {
+    } else {
       // 登录失败，重新登录
       return "redirect:/";
     }

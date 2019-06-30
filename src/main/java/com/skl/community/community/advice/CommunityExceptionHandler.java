@@ -20,12 +20,12 @@ public class CommunityExceptionHandler {
   @ExceptionHandler(Exception.class)
   ModelAndView handle(Throwable e, Model model, HttpServletRequest request, HttpServletResponse response) {
     String contentType = request.getContentType();
-    if("application/json".equals(contentType)){
+    if ("application/json".equals(contentType)) {
       ResultDTO resultDTO = null;
       // 返回json
-      if(e instanceof CommunityException){
-        resultDTO= ResultDTO.errorOf((CommunityException) e);
-      }else {
+      if (e instanceof CommunityException) {
+        resultDTO = ResultDTO.errorOf((CommunityException) e);
+      } else {
         resultDTO = ResultDTO.errorOf(CommunityErrorCode.SYSTEM_ERROR);
       }
 
@@ -40,12 +40,12 @@ public class CommunityExceptionHandler {
         ex.printStackTrace();
       }
       return null;
-    }else {
+    } else {
       // 错误页面跳转
-      if(e instanceof CommunityException){
-        model.addAttribute("message",e.getMessage());
-      }else {
-        model.addAttribute("message",CommunityErrorCode.SYSTEM_ERROR.getMessage());
+      if (e instanceof CommunityException) {
+        model.addAttribute("message", e.getMessage());
+      } else {
+        model.addAttribute("message", CommunityErrorCode.SYSTEM_ERROR.getMessage());
       }
       return new ModelAndView("error");
     }

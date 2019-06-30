@@ -3,6 +3,7 @@ package com.skl.community.community.interceptor;
 import com.skl.community.community.mapper.UserMapper;
 import com.skl.community.community.model.User;
 import com.skl.community.community.model.UserExample;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -12,7 +13,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-
 
 @Service
 public class SessionInterception implements HandlerInterceptor {
@@ -33,6 +33,7 @@ public class SessionInterception implements HandlerInterceptor {
           if(users.size()!=0){
             // 写到session
             request.getSession().setAttribute("user",users.get(0));
+
           }
           break;
         }

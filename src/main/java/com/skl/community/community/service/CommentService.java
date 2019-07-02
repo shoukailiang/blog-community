@@ -4,10 +4,7 @@ import com.skl.community.community.dto.CommentDTO;
 import com.skl.community.community.enums.CommentTypeEnum;
 import com.skl.community.community.exception.CommunityErrorCode;
 import com.skl.community.community.exception.CommunityException;
-import com.skl.community.community.mapper.CommentMapper;
-import com.skl.community.community.mapper.QuestionExtMapper;
-import com.skl.community.community.mapper.QuestionMapper;
-import com.skl.community.community.mapper.UserMapper;
+import com.skl.community.community.mapper.*;
 import com.skl.community.community.model.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,8 @@ public class CommentService {
   @Autowired
   private UserMapper userMapper;
 
+  @Autowired
+  private CommentExtMapper commentExtMapper;
 
   @Transactional
   public void insert(Comment comment) {
@@ -53,6 +52,12 @@ public class CommentService {
         throw new CommunityException(CommunityErrorCode.COMMENT_NOT_FOUND);
       }
       commentMapper.insert(comment);
+
+      // 增加评论数
+      Comment parentComment = new Comment();
+      parentComment.setId(comment.getParentId());
+      parentComment.setCommentCount(1);
+      commentExtMapper.incCommentCount(parentComment);
     } else {
       // 回复问题
       Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
@@ -65,11 +70,11 @@ public class CommentService {
     }
   }
 
-  public List<CommentDTO> listByQuestionId(Long id) {
+  public List<CommentDTO> listByTargetId(Long id, CommentTypeEnum type) {
     CommentExample commentExample = new CommentExample();
     commentExample.createCriteria()
         .andParentIdEqualTo(id)
-        .andTypeEqualTo(CommentTypeEnum.QUESTION.getType());
+        .andTypeEqualTo(type.getType());
     //按gmt_create 排序
     commentExample.setOrderByClause("gmt_create desc");
     List<Comment> commentList = commentMapper.selectByExample(commentExample);

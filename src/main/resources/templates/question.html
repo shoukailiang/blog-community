@@ -28,11 +28,24 @@
         </span>
         <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
+
         <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
-        <a th:href="@{'/publish/'+${question.id}}" class="community-menu"
-           th:if="${session.user != null && session.user.id == question.creator}">
-          <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑</span>
-        </a>
+        <!--标签-->
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+           <span class="label label-info question-tag" th:each="tag : ${question.tag.split(',')}">
+                        <span class="glyphicon glyphicon-tags"></span>
+                        <span class="label label-info" th:text="${tag}"></span>
+           </span>
+        </div>
+
+        <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <a th:href="@{'/publish/'+${question.id}}" class="community-menu"
+             th:if="${session.user != null && session.user.id == question.creator}">
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑</span>
+          </a>
+        </div>
+
       </div>
       <!--      回复-->
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -67,31 +80,33 @@
             <!--              二级评论-->
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse sub-comments" th:id="${'comment-'+comment.id}">
-<!--              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comments" th:each="comment : ${comments}">-->
-<!--                <div class="media">-->
-<!--                  <div class="media-left">-->
-<!--                    <a href="#">-->
-<!--                      <img class="media-object img-circle" th:src="${comment.user.avatarUrl}" alt="...">-->
-<!--                    </a>-->
-<!--                  </div>-->
-<!--                  <div class="media-body">-->
-<!--                    <h5 class="media-heading">-->
-<!--                      <span th:text="${comment.user.name}"></span>-->
-<!--                    </h5>-->
-<!--                    <div th:text="${comment.content}"></div>-->
-<!--                    <div class="menu">-->
-<!--                      <span class="pull-right"-->
-<!--                            th:text="${#dates.format(comment.gmtCreate,'yyyy MMMM dd HH:mm')}"></span>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse " th:id="${'comment-'+comment.id}">-->
-<!--                    esdfk;-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
+              <!--              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comments" th:each="comment : ${comments}">-->
+              <!--                <div class="media">-->
+              <!--                  <div class="media-left">-->
+              <!--                    <a href="#">-->
+              <!--                      <img class="media-object img-circle" th:src="${comment.user.avatarUrl}" alt="...">-->
+              <!--                    </a>-->
+              <!--                  </div>-->
+              <!--                  <div class="media-body">-->
+              <!--                    <h5 class="media-heading">-->
+              <!--                      <span th:text="${comment.user.name}"></span>-->
+              <!--                    </h5>-->
+              <!--                    <div th:text="${comment.content}"></div>-->
+              <!--                    <div class="menu">-->
+              <!--                      <span class="pull-right"-->
+              <!--                            th:text="${#dates.format(comment.gmtCreate,'yyyy MMMM dd HH:mm')}"></span>-->
+              <!--                    </div>-->
+              <!--                  </div>-->
+              <!--                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse " th:id="${'comment-'+comment.id}">-->
+              <!--                    esdfk;-->
+              <!--                  </div>-->
+              <!--                </div>-->
+              <!--              </div>-->
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comments">
                 <input type="text" class="form-control" placeholder="评论一下" th:id="${'input-'+comment.id}">
-                <button type="button" class="btn btn-success pull-right" th:data-id="${comment.id}" onclick="comment(this)">评论</button>
+                <button type="button" class="btn btn-success pull-right" th:data-id="${comment.id}"
+                        onclick="comment(this)">评论
+                </button>
               </div>
             </div>
           </div>
@@ -138,6 +153,11 @@
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <h3>相关问题</h3>
+        <ul class="question-related">
+          <li th:each="related : ${relatedQuestions}">
+            <a th:href="@{'/question/'+ ${related.id}}" th:text="${related.title}"></a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

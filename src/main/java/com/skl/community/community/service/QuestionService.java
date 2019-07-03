@@ -1,6 +1,7 @@
 package com.skl.community.community.service;
 
 
+import com.skl.community.community.dto.NotificationDTO;
 import com.skl.community.community.dto.PaginationDTO;
 import com.skl.community.community.dto.QuestionDTO;
 import com.skl.community.community.exception.CommunityErrorCode;
@@ -70,7 +71,7 @@ public class QuestionService {
       questionDTO.setUser(user);
       questionDTOList.add(questionDTO);
     }
-    paginationDTO.setQuestions(questionDTOList);
+    paginationDTO.setData(questionDTOList);
 
 
     return paginationDTO;
@@ -82,6 +83,7 @@ public class QuestionService {
     Integer totalPage;
     QuestionExample questionExample = new QuestionExample();
     questionExample.createCriteria().andCreatorEqualTo(userId);
+    questionExample.setOrderByClause("gmt_create desc");
     Integer totalCount = (int) questionMapper.countByExample(questionExample);
 
     if (totalCount % size == 0) {
@@ -117,7 +119,7 @@ public class QuestionService {
       questionDTO.setUser(user);
       questionDTOList.add(questionDTO);
     }
-    paginationDTO.setQuestions(questionDTOList);
+    paginationDTO.setData(questionDTOList);
     return paginationDTO;
   }
 

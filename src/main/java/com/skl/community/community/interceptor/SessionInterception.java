@@ -3,6 +3,7 @@ package com.skl.community.community.interceptor;
 import com.skl.community.community.mapper.UserMapper;
 import com.skl.community.community.model.User;
 import com.skl.community.community.model.UserExample;
+import com.skl.community.community.service.NotificationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class SessionInterception implements HandlerInterceptor {
   @Autowired
   private UserMapper userMapper;
 
+  @Autowired
+  private NotificationService notificationService;
+
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     Cookie[] cookies = request.getCookies();
@@ -33,7 +37,9 @@ public class SessionInterception implements HandlerInterceptor {
           if(users.size()!=0){
             // 写到session
             request.getSession().setAttribute("user",users.get(0));
-
+            // 消息未读数
+            Long unreadCount = notificationService.unreadCount(users.get(0).getId());
+            request.getSession().setAttribute("unreadCount", unreadCount);
           }
           break;
         }

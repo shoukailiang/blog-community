@@ -27,7 +27,7 @@
         <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>发现</h2>
         <hr>
 
-        <div class="media" th:each="question : ${pagination.questions}">
+        <div class="media" th:each="question : ${pagination.data}">
           <div class="media-left">
             <a href="#">
               <img class="media-object img-rounded" th:src="${question.user.avatarUrl}" alt="...">
@@ -35,7 +35,7 @@
           </div>
           <div class="media-body">
             <h3 class="media-heading" >
-              <a th:href="@{'question/'+${question.id}}" th:text="${question.title}"></a>
+              <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
             </h3>
             <span th:text="${question.description}">点击进入</span><br>
             <span class="text-desc">

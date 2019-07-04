@@ -15,3 +15,11 @@
 ```bash
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 ```
+
+## markdown 编辑器
+[Editor.md](https://pandao.github.io/editor.md/)
+
+## markdown编辑器的图片上传
+[ucloud的对象存储](https://docs.ucloud.cn/storage_cdn/ufile/index)
+## sdk
+[UFile(OSS) SDK for Java from UCloud](https://github.com/ucloud/ufile-sdk-java)

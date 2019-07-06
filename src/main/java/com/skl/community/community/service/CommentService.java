@@ -70,7 +70,6 @@ public class CommentService {
       commentExtMapper.incCommentCount(parentComment);
 
 
-
       // 创建通知
       createNotify(comment, dbComment.getCommentator(), commentator.getName(), question.getTitle(), NotificationTypeEnum.REPLY_COMMENT, question.getId());
 
@@ -80,6 +79,7 @@ public class CommentService {
       if (question == null) {
         throw new CommunityException(CommunityErrorCode.QUESTION_NOT_FOUND);
       }
+      comment.setCommentCount(0);
       commentMapper.insert(comment);
       question.setCommentCount(1);
       questionExtMapper.incCommentCount(question);
@@ -91,6 +91,10 @@ public class CommentService {
   }
 
   private void createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType, Long outerId) {
+    // 接受通知的人和触发通知的人相同
+    if (receiver == comment.getCommentator()) {
+      return;
+    }
     Notification notification = new Notification();
     notification.setGmtCreate(System.currentTimeMillis());
     notification.setType(notificationType.getType());

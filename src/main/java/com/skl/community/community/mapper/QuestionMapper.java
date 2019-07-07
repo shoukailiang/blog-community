@@ -1,5 +1,6 @@
 package com.skl.community.community.mapper;
 
+import com.skl.community.community.dto.QuestionQueryDTO;
 import com.skl.community.community.model.Question;
 import com.skl.community.community.model.QuestionExample;
 import java.util.List;
@@ -134,4 +135,5 @@ public interface QuestionMapper {
      * @mbg.generated Wed Jul 03 14:01:37 CST 2019
      */
     int updateByPrimaryKey(Question record);
+
 }

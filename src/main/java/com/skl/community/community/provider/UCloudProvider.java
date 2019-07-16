@@ -9,12 +9,14 @@ import cn.ucloud.ufile.exception.UfileClientException;
 import cn.ucloud.ufile.exception.UfileServerException;
 import com.skl.community.community.exception.CommunityErrorCode;
 import com.skl.community.community.exception.CommunityException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class UCloudProvider {
   @Value("${ucloud.ufile.public-key}")
@@ -66,9 +68,11 @@ public class UCloudProvider {
       }
     } catch (UfileClientException e) {
       e.printStackTrace();
+      log.error("upload error,{}", fileName, e);
       throw new CommunityException(CommunityErrorCode.FILE_UPLOAD_FAIL);
     } catch (UfileServerException e) {
       e.printStackTrace();
+      log.error("upload error,{}", fileName, e);
       throw new CommunityException(CommunityErrorCode.FILE_UPLOAD_FAIL);
     }
   }

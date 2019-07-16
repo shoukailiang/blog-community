@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.skl.community.community.dto.ResultDTO;
 import com.skl.community.community.exception.CommunityErrorCode;
 import com.skl.community.community.exception.CommunityException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+@Slf4j
 @ControllerAdvice
 public class CommunityExceptionHandler {
   @ExceptionHandler(Exception.class)
@@ -26,6 +28,7 @@ public class CommunityExceptionHandler {
       if (e instanceof CommunityException) {
         resultDTO = ResultDTO.errorOf((CommunityException) e);
       } else {
+        log.error("handle error", e);
         resultDTO = ResultDTO.errorOf(CommunityErrorCode.SYSTEM_ERROR);
       }
 
@@ -45,6 +48,7 @@ public class CommunityExceptionHandler {
       if (e instanceof CommunityException) {
         model.addAttribute("message", e.getMessage());
       } else {
+        log.error("handle error", e);
         model.addAttribute("message", CommunityErrorCode.SYSTEM_ERROR.getMessage());
       }
       return new ModelAndView("error");

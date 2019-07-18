@@ -35,11 +35,7 @@
                 </ul>
               </li>
               <li th:if="${session.user==null}">
-                <a
-                    href="https://github.com/login/oauth/authorize?client_id=34249f8e850476059776&redirect_uri=http://localhost:8888/callback&scope=user&state=1"
-                >
-                  登录
-                </a>
+                <a th:href="@{https://github.com/login/oauth/authorize(client_id='34249f8e850476059776',redirect_uri=${#httpServletRequest.getServletContext().getAttribute('redirectUri')},scope='user',state=1)}">登录</a>
               </li>
             </ul>
           </div><!-- /.navbar-collapse -->

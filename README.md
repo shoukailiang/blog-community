@@ -23,3 +23,10 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 [ucloud的对象存储](https://docs.ucloud.cn/storage_cdn/ufile/index)
 ## sdk
 [UFile(OSS) SDK for Java from UCloud](https://github.com/ucloud/ufile-sdk-java)
+
+## 运行
+```shell
+cp 一个 application-production.properties
+mvn clean compile package 
+java -jar -Dspring.profiles.active=production /target/xxxxx.jar
+```

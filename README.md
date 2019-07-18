@@ -5,7 +5,7 @@
 [文档](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/)
 
 ## 数据库
-[h2:一个内嵌的数据库](https://www.h2database.com/html/main.html)
+mysql
 ## 数据库迁移
 [flyway](https://flywaydb.org/getstarted/) 
 ```bash

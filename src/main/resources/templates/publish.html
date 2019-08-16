@@ -2,15 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>发布-SKL 社区</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="/css/editormd.min.css" />
-  <link rel="stylesheet" href="/css/community.css">
-  <script src="/js/jquery-3.4.1.min.js"></script>
-  <script src="/js/editormd.min.js" type="application/javascript"></script>
-  <script src="/js/bootstrap.min.js" type="application/javascript"></script>
-  <script src="/js/community.js" type="application/javascript"></script>
+  <head th:insert="~{import :: head}"></head>
+  <head th:insert="~{import :: markdown}"></head>
   <script type="text/javascript">
       $(function() {
           var editor = editormd("question-editor", {

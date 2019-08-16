@@ -25,7 +25,7 @@ public class HotTagTasks {
   @Autowired
   private HotTagCache hotTagCache;
 
-  @Scheduled(fixedRate = 5000 )// 3 hour
+  @Scheduled(fixedRate = 1000 * 60)// 3 hour
   public void hotTagSchedule() {
     int offset = 0;
     int limit = 20;

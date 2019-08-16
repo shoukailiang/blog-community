@@ -1,7 +1,6 @@
 package com.skl.community.community.service;
 
 
-import com.skl.community.community.dto.NotificationDTO;
 import com.skl.community.community.dto.PaginationDTO;
 import com.skl.community.community.dto.QuestionDTO;
 import com.skl.community.community.dto.QuestionQueryDTO;
@@ -159,6 +158,16 @@ public class QuestionService {
       questionMapper.insert(question);
     } else {
       // 更新
+
+      Question dbQuestion = questionMapper.selectByPrimaryKey(question.getId());
+      if (dbQuestion == null) {
+        throw new CommunityException(CommunityErrorCode.QUESTION_NOT_FOUND);
+      }
+
+      if (dbQuestion.getCreator().longValue() != question.getCreator().longValue()) {
+        throw new CommunityException(CommunityErrorCode.INVALID_OPERATION);
+      }
+
       Question updateQuestion = new Question();
       updateQuestion.setGmtModified(System.currentTimeMillis());
       updateQuestion.setTitle(question.getTitle());

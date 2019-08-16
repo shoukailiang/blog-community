@@ -4,7 +4,6 @@ import com.skl.community.community.mapper.UserMapper;
 import com.skl.community.community.model.User;
 import com.skl.community.community.model.UserExample;
 import com.skl.community.community.service.NotificationService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -30,7 +29,9 @@ public class SessionInterception implements HandlerInterceptor {
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
     //设置 context 级别的属性
+    //navigation模板使用
     request.getServletContext().setAttribute("redirectUri", redirectUri);
 
     Cookie[] cookies = request.getCookies();

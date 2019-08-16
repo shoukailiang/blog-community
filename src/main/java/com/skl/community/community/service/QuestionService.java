@@ -1,7 +1,6 @@
 package com.skl.community.community.service;
 
 
-import com.skl.community.community.dto.NotificationDTO;
 import com.skl.community.community.dto.PaginationDTO;
 import com.skl.community.community.dto.QuestionDTO;
 import com.skl.community.community.dto.QuestionQueryDTO;
@@ -36,7 +35,7 @@ public class QuestionService {
   @Autowired
   private QuestionExtMapper questionExtMapper;
 
-  public PaginationDTO list(String search, Integer page, Integer size) {
+  public PaginationDTO list(String search, String tag, Integer page, Integer size) {
 
     if (StringUtils.isNotBlank(search)) {
       String[] tags = StringUtils.split(search, ' ');
@@ -48,6 +47,7 @@ public class QuestionService {
     Integer totalPage;
     QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
     questionQueryDTO.setSearch(search);
+    questionQueryDTO.setTag(tag);
     Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
 
     if (totalCount % size == 0) {
@@ -66,7 +66,7 @@ public class QuestionService {
 
     paginationDTO.setPagination(totalPage, page);
 
-    Integer offset = page < 1 ? 0 : size * (page - 1);
+    Integer offset = size * (page - 1);
     QuestionExample questionExample = new QuestionExample();
     questionExample.setOrderByClause("gmt_create desc");
     questionQueryDTO.setSize(size);
@@ -159,6 +159,7 @@ public class QuestionService {
       questionMapper.insert(question);
     } else {
       // 更新
+
       Question dbQuestion = questionMapper.selectByPrimaryKey(question.getId());
       if (dbQuestion == null) {
         throw new CommunityException(CommunityErrorCode.QUESTION_NOT_FOUND);

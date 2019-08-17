@@ -29,6 +29,7 @@ public class IndexController {
                       // 每页size
                       @RequestParam(name = "size", defaultValue = "5") Integer size,
                       @RequestParam(name = "search", required = false) String search,
+                      // 标签
                       @RequestParam(name = "tag", required = false) String tag) {
 
     PaginationDTO pagination = questionService.list(search, tag, page, size);

@@ -38,8 +38,17 @@ public class QuestionService {
   public PaginationDTO list(String search, String tag, Integer page, Integer size) {
 
     if (StringUtils.isNotBlank(search)) {
-      String[] tags = StringUtils.split(search, ' ');
-      search = Arrays.stream(tags).collect(Collectors.joining("|"));
+      String[] inputString = StringUtils.split(search, ' ');
+      search = Arrays
+          .stream(inputString)
+          .filter(StringUtils::isNotBlank)
+          .map(t -> t.replace("+", "")
+              .replace("*", "")
+              .replace("?", "")
+              .replace("？", "")   // 中文？
+          )
+          .filter(StringUtils::isNotBlank)
+          .collect(Collectors.joining("|"));
     }
 
     PaginationDTO paginationDTO = new PaginationDTO();
@@ -47,7 +56,14 @@ public class QuestionService {
     Integer totalPage;
     QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
     questionQueryDTO.setSearch(search);
-    questionQueryDTO.setTag(tag);
+    if (StringUtils.isNotBlank(tag)) {
+      tag = tag.replace("+", "")
+          .replace("*", "")
+          .replace("？", "")
+          .replace("?", "");
+      System.out.println(tag);
+      questionQueryDTO.setTag(tag);
+    }
     Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
 
     if (totalCount % size == 0) {

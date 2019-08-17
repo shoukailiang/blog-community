@@ -1,11 +1,11 @@
 create table user
 (
-    id int auto_increment,
+    id bigint auto_increment primary key not null,
     account_id varchar(100),
     name varchar(50),
-    token char,
+    token varchar(36),
+    bio varchar(256) null,
+    avatar_url varchar(100) null,
     gmt_create bigint,
-    gmt_modified bigint,
-    constraint user_pk
-    primary key (id)
+    gmt_modified bigint
 )

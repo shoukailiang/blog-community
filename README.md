@@ -5,7 +5,9 @@
 [文档](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/)
 
 ## 数据库
-[h2:一个内嵌的数据库](https://www.h2database.com/html/main.html)
+mysql
+
+mysql在win下没大小写敏感，但在linux服务器下大小写敏感，可以选择在mysql.ini,使得大小写不敏感
 ## 数据库迁移
 [flyway](https://flywaydb.org/getstarted/) 
 ```sh

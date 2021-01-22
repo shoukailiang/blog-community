@@ -1,4 +1,5 @@
-# community
+# blog-community
+## 项目前后端不分离
 ## 使用github授权登录
 [github授权登录--Github OAuth](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
 ## 授权文档

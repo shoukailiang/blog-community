@@ -15,15 +15,23 @@
 ## MyBatis Generator With Maven
 ```sh
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
+
+```
+
+## github登录设置
+![img.png](./github登录1.png)
+没服务器回调地址可以写本地
+```shell
+github.client.id= 
+github.client.secret =
+github.redirect.uri = 
 ```
 
 ## markdown 编辑器
 [Editor.md](https://pandao.github.io/editor.md/)
 
 ## markdown编辑器的图片上传
-[ucloud的对象存储](https://docs.ucloud.cn/storage_cdn/ufile/index)
-## sdk
-[UFile(OSS) SDK for Java from UCloud](https://github.com/ucloud/ufile-sdk-java)
+已经替换为阿里云oss了，在配置文件中设置
 
 ## 快速运行
 ```sh

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,21 +19,25 @@ import java.util.List;
 @Service
 public class SessionInterception implements HandlerInterceptor {
 
-  @Autowired
+  @Resource
   private UserMapper userMapper;
 
   @Autowired
   private NotificationService notificationService;
 
   @Value("${github.redirect.uri}")
-  private String redirectUri;
+  private String githubRedirectUri;
+
+  @Value("${gitee.redirect.uri}")
+  private String giteeRedirectUri;
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
     //设置 context 级别的属性
     //navigation模板使用
-    request.getServletContext().setAttribute("redirectUri", redirectUri);
+    request.getServletContext().setAttribute("githubRedirectUri", githubRedirectUri);
+    request.getServletContext().setAttribute("giteeRedirectUri", giteeRedirectUri);
 
     Cookie[] cookies = request.getCookies();
     if(cookies!=null&&cookies.length!=0){

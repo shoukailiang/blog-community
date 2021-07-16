@@ -35,12 +35,36 @@
                 </ul>
               </li>
               <li th:if="${session.user==null}">
-                <a th:href="@{https://github.com/login/oauth/authorize(client_id='34249f8e850476059776',redirect_uri=${#httpServletRequest.getServletContext().getAttribute('redirectUri')},scope='user',state=1)}">登录</a>
+<!--                <a th:href="@{https://github.com/login/oauth/authorize(client_id='34249f8e850476059776',redirect_uri=${#httpServletRequest.getServletContext().getAttribute('redirectUri')},scope='user',state=1)}">登录</a>-->
+                <a href="#" data-toggle="modal" data-target="#myModal">登录</a>
               </li>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
+
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="margin-top: 200px;width: 300px;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                      aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">登录注册</h4>
+            </div>
+            <div class="modal-body" style="text-align:center">
+              <a th:href="@{https://gitee.com/oauth/authorize(client_id='4098f49aa0128df27a4ea4e43063b2cac6682210ffbbc7d0cb864b4b49d0e4fe',redirect_uri=${#httpServletRequest.getServletContext().getAttribute('giteeRedirectUri')},response_type=code)}">
+                <span>gitee</span>
+              </a>
+              <a th:href="@{https://github.com/login/oauth/authorize(client_id='34249f8e850476059776',redirect_uri=${#httpServletRequest.getServletContext().getAttribute('githubRedirectUri')},scope='user',state=1)}">
+                <span>github</span>
+              </a>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

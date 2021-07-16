@@ -107,7 +107,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>5.2.4</version>
                 <configuration>
-                    <url>jdbc:mysql://localhost:3306/blog-community?characterEncoding=utf8</url>
+                    <url>jdbc:mysql://localhost:3306/blog-community?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC&amp;useSSL=false</url>
                     <user>root</user>
                     <password>123456</password>
                 </configuration>
@@ -115,7 +115,7 @@
                     <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
-                        <version>8.0.21</version>
+                        <version>5.1.49</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -128,7 +128,7 @@
                     <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
-                        <version>8.0.21</version>
+                        <version>5.1.49</version>
                     </dependency>
                 </dependencies>
             </plugin>

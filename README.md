@@ -1,6 +1,6 @@
 # blog-community
-## 项目前后端不分离
-## 使用github授权登录
+> 项目前后端不分离,前后端分离请看我另一个项目
+## 使用github和gitee授权登录
 [github授权登录--Github OAuth](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
 ## 授权文档
 [文档](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/)
